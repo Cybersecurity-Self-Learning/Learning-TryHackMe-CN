@@ -1,5 +1,6 @@
 ---
 description: 本文相关内容：介绍如何使用 Burp Suite 进行 Web 应用程序渗透测试。
+icon: check
 cover: ../../.gitbook/assets/下载.svg
 coverY: 0
 layout:
@@ -391,28 +392,31 @@ tips：如果Burp Suite并未启动运行，那么本地浏览器将无法在插
 
 为了解决上述问题，我们需要让Firefox浏览器信任Portswigger证书有权保护HTTPS连接，因此我们可以手动将此CA证书添加到浏览器的受信任证书颁发机构列表中，操作方法如下：
 
-1.  下载CA证书：首先，在Burp代理配置激活(未开启拦截功能)的时候访问 http://burp/cert ，这将下载一个名为`cacert.der`的文件，我们将此文件保存到计算机上的某个位置。
+1.下载CA证书：首先，在Burp代理配置激活(未开启拦截功能)的时候访问 http://burp/cert ，这将下载一个名为`cacert.der`的文件，我们将此文件保存到计算机上的某个位置。
 
+<figure><img src="../../.gitbook/assets/2857591-20231224114850375-24578596.png" alt=""><figcaption></figcaption></figure>
 
-2.  访问 Firefox 证书设置：在 Firefox URL 栏中输入`about:preferences`并按下Enter键，这将把我们带到FireFox的设置页面，然后我们再在设置页面中搜索"certificates-证书"，然后单击"View certificates-查看证书"按钮。
+2.访问 Firefox 证书设置：在 Firefox URL 栏中输入`about:preferences`并按下Enter键，这将把我们带到FireFox的设置页面，然后我们再在设置页面中搜索"certificates-证书"，然后单击"View certificates-查看证书"按钮。
 
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
+3.导入CA证书：在"Certificate Manager-证书管理器"窗口，单击“Import-导入”按钮，然后选择我们在前述步骤中所下载的`cacert.der`文件。
 
-3.  导入CA证书：在"Certificate Manager-证书管理器"窗口，单击“Import-导入”按钮，然后选择我们在前述步骤中所下载的`cacert.der`文件。
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
+4.设置信任CA证书：在随后出现的窗口中，选中"Trust this CA to identify websites-信任此CA以识别网站"框，然后点击"OK"按钮。
 
-
-4.  设置信任CA证书：在随后出现的窗口中，选中"Trust this CA to identify websites-信任此CA以识别网站"框，然后点击"OK"按钮。
-
-
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 通过完成上述步骤，我们已经将PortSwigger CA证书添加到了受信任的证书颁发机构列表中；现在，我们应该能够访问任何启用TLS的站点，而不会遇到证书错误。
 
 如下图所示，我们现在可以在激活了Burp代理配置(未开启拦截功能)的情况下，自由地访问任何启用了TLS(也就是使用了HTTPS协议)的网站。
 
-
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 ## Burp Suite内置浏览器
 
@@ -420,24 +424,24 @@ tips：如果Burp Suite并未启动运行，那么本地浏览器将无法在插
 
 我们可以通过Burp Proxy(代理)模块的"Intercept"子选项卡中的"Open Browser-打开浏览器"按钮来启动Burp Suite内置浏览器：
 
-
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
 点击"Open Browser-打开浏览器"按钮之后，将会自动弹出一个Chromium窗口，我们在这个浏览器中发出的任何请求都将自动通过Burp Proxy(代理)。
 
-
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 注意：在项目选项和用户选项的设置中有许多与Burp Suite内置浏览器相关的设置，请根据需要探索和定制它们。
 
 如果我们在Linux上以root用户运行Burp Suite，则可能会遇到由于无法创建沙箱环境而导致Burp Suite内置浏览器无法启动的错误。
 
-
+<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 对此有两个简单的解决方案：
 
 * 明智的选择：我们可以在Linux上创建一个新用户，并在低权限帐户下运行Burp Suite，这将允许Burp Browser运行而不会出现问题。
 * 简单的选择：我们可以进入"Settings"->" Tools"->"Burp's browser"，并勾选"Allow Burp's browser to run without a sandbox-允许Burp's浏览器在没有沙箱环境的情况下运行"，启用此选项将允许Burp Browser在root用户权限下启动，但请注意，出于安全原因，默认情况下该选项是被禁用的。
 
-
+<figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
 ## Target和Scoping
 
@@ -449,19 +453,19 @@ tips：如果Burp Suite并未启动运行，那么本地浏览器将无法在插
 
 通过在Burp Suite的项目(Project)设置中修改范围(Scope)，我们可以定义在Burp Suite中代理(Proxy)和记录的内容，从而限制Burp Suite仅针对我们想要测试的特定Web应用程序；相关步骤如下：我们先切换到`Target`选项卡，右键单击Site map左侧列表中的目标站点，并且选择`Add To Scope`，然后Burp将提示我们是否要停止记录范围(scope)之外的任何内容——我们选择`yes`即可。
 
+<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
-
-
+<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
 现在我们切换到Target选项卡下的"Scope settings"子选项卡中，然后就可以检查流量记录范围(可以看到我们刚才添加的站点)：
 
-
+<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
 如上图所示：Scope settings子选项卡允许我们通过包含或者排除“域名/ip地址”来控制Burp Proxy(代理)所记录的流量范围。
 
 我们刚才只是选择禁用范围外流量的日志记录，但是当我们启用Burp代理的拦截功能时，仍然会拦截浏览器中的所有流量；如果要关闭拦截全部流量的功能，我们需要转到Proxy settings子选项卡，然后在"Intercept Client Requests-拦截客户端请求"部分中配置"`And` `URL` `Is in target scope`"规则，这样Burp仅会拦截目标范围内的流量。
 
-
+<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
 按照上图选项成功配置流量拦截规则之后，Burp代理将完全忽略在已定义的范围之外的任何流量内容(既不记录范围外的流量日志，也不拦截范围外的浏览器请求)，从而能在Burp Suite中为我们提供更清晰的流量视图。
 
@@ -481,21 +485,19 @@ tips：我们可以将`http://MACHINE_IP/`(目标站点)添加到我们的Burp S
 
 启动目标机器，在攻击机上激活Burp代理插件并且不启用拦截功能，使用本地浏览器访问目标站点( http://10.10.53.186/ )的每个页面，然后检查Burp中Target选项卡下的Site map界面(我们想找到一个可疑端点，并想查看其响应消息)：
 
+<figure><img src="../../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
-
-
+<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
 
 > 找到的flag为：THM{NmNlZTliNGE1MWU1ZTQzMzgzNmFiNWVk} 。
 
 查看Burp Suite中的Issue Definitions列表(它是Target选项卡下的子选项卡)，找到易受攻击的JavaScript依赖项(Vulnerable JavaScript dependency) 所对应的漏洞严重性：
 
-
+<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
 
 > 严重性为：Low
 
-
-
-
+<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
 
 ## 实例练习
 
@@ -509,9 +511,9 @@ XSS漏洞有很多种——我们在本小节实例中所测试的XSS类型被�
 
 查看目标站点的support页面： http://10.10.53.186/ticket/
 
+<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
-
-
+<figure><img src="../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 在上图中的"Contact Email"输入框中，输入以下内容：
 
@@ -527,15 +529,15 @@ XSS漏洞有很多种——我们在本小节实例中所测试的XSS类型被�
 
 我们打开Burp Suite并启动Burp代理插件，然后开启Burp Proxy中的拦截功能，然后再在浏览器中通过目标站点的Support页面发送请求：
 
-
+<figure><img src="../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 
 成功捕获到请求后，修改email字段为 `<script>alert("Succ3ssful XSS")</script>`，然后使用Ctrl + U快捷键对修改之后的内容进行一次URL编码，以使其稍后可以安全地被发送：
 
-
+<figure><img src="../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
 我们点击上图中的"Forward"按钮，这将使得浏览器继续向目标站点发送修改之后的请求，如果我们在浏览器页面中得到一个js弹框(代表我们插入的js脚本成功被执行)，那么就说明目标站点确实存在“反射型”XSS漏洞：
 
-
+<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 
 ## 小结\&Pro版下载链接
 

