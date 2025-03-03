@@ -1,8 +1,8 @@
 ---
-description: SOC Level 2 学习路径(此路径的部分笔记可能放置在其他学习路径下)
 icon: landmark-magnifying-glass
-cover: ../.gitbook/assets/SOCL2-square.svg
-coverY: 0
+description: SOC Level 2 学习路径(此路径的部分笔记可能放置在其他学习路径下)
+cover: ../.gitbook/assets/SOCL2-square (1).svg
+coverY: 50.02933333333333
 layout:
   cover:
     visible: true

@@ -1,8 +1,8 @@
 ---
-description: Introduction to Cyber Security 学习路径(此路径的部分笔记可能放置在其他学习路径下)
 icon: map
+description: Introduction to Cyber Security 学习路径(此路径的部分笔记可能放置在其他学习路径下)
 cover: ../../.gitbook/assets/introtocybersecurity-square.svg
-coverY: 0
+coverY: -137.07733333333334
 layout:
   cover:
     visible: true

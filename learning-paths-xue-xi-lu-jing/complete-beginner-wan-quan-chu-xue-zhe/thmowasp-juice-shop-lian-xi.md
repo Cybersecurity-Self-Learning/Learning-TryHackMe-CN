@@ -20,9 +20,7 @@ layout:
 
 # OWASP Juice Shop-练习
 
-TryHackMe实验房间链接：[https://tryhackme.com/room/owaspjuiceshop](https://tryhackme.com/room/owaspjuiceshop)
-
-
+本文相关的TryHackMe实验房间链接：[https://tryhackme.com/room/owaspjuiceshop](https://tryhackme.com/room/owaspjuiceshop)
 
 ## Task 1 部署实验环境&前期准备
 
@@ -40,11 +38,11 @@ Juice Shop 是一个大型应用程序，它并不会涵盖OWASP-TOP10中的每�
 
 从【Task3】开始都需要获得flag以完成任务要求，flag所对应的内容会在相关任务完成后自动显示在网页上。
 
-![image-20221208214237151](C:%5CUsers%5CVimalano2ise%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221208214237151.png)
+<figure><img src="../../.gitbook/assets/image (134).png" alt=""><figcaption></figcaption></figure>
 
 故障排除事项：
 
-目标web应用程序在加载时大约需要 2-5 分钟，请耐心等待！
+目标web应用程序在加载时大约需要 2-5 分钟，请耐心等待。
 
 如果使用了Burpsuite工具，则每次完成任务时 需要先在当前浏览器的代理设置中暂时禁用burp，然后再刷新页面，页面上才会显示相关的flag内容。（这不是应用程序本身的问题，而是burp工具在拦截流量时 会自动阻止flag的内容显示）
 

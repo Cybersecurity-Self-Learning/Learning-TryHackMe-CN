@@ -1,8 +1,8 @@
 ---
-description: Web Fundamentals 学习路径(此路径的部分笔记可能放置在其他学习路径下)
 icon: spider-web
-cover: ../.gitbook/assets/web-square.svg
-coverY: 0
+description: Web Fundamentals 学习路径(此路径的部分笔记可能放置在其他学习路径下)
+cover: ../.gitbook/assets/web.svg
+coverY: 59.85066666666666
 layout:
   cover:
     visible: true

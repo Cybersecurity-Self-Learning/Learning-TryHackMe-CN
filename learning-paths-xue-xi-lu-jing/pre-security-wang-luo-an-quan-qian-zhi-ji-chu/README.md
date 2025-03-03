@@ -1,8 +1,8 @@
 ---
-description: Pre Security 学习路径
 icon: toggle-large-on
-cover: ../../.gitbook/assets/presecurity-square.svg
-coverY: 0
+description: Pre Security 学习路径
+cover: ../../.gitbook/assets/presecurity.svg
+coverY: 40.54399999999998
 layout:
   cover:
     visible: true

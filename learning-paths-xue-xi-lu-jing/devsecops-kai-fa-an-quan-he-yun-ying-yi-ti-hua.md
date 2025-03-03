@@ -1,8 +1,8 @@
 ---
-description: DevSecOps 学习路径
 icon: infinity
-cover: ../.gitbook/assets/devsecops-square.png
-coverY: 0
+description: DevSecOps 学习路径
+cover: ../.gitbook/assets/devsecops.svg
+coverY: 2.106666666666648
 layout:
   cover:
     visible: true

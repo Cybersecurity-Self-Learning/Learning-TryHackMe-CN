@@ -1,8 +1,8 @@
 ---
-description: Red Teaming 学习路径(此路径的部分笔记可能放置在其他学习路径下)
 icon: user-ninja
+description: Red Teaming 学习路径(此路径的部分笔记可能放置在其他学习路径下)
 cover: ../.gitbook/assets/redteaming-square.png
-coverY: 0
+coverY: 449.8453333333334
 layout:
   cover:
     visible: true

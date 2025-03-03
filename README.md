@@ -23,11 +23,11 @@ layout:
 
 <figure><picture><source srcset=".gitbook/assets/Snipaste_2025-01-05_22-29-34-modified.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/Snipaste_2025-01-05_22-29-54-modified.png" alt=""></picture><figcaption></figcaption></figure>
 
-本项目GitHub链接：[https://github.com/Hekeatsll/Learning-TryHackMe-CN](https://github.com/Hekeatsll/Learning-TryHackMe-CN)
+本项目GitHub链接：[https://github.com/Hekeatsll/Learning-TryHackMe-CN](https://github.com/Cybersecurity-Self-Learning/Learning-TryHackMe-CN)
 
 <figure><img src=".gitbook/assets/tryhackme-modified.png" alt="" width="563"><figcaption></figcaption></figure>
 
-TryHackMe官网链接：[https://tryhackme.com](https://tryhackme.com/room/defensivesecurity)
+TryHackMe官网链接：[https://tryhackme.com](https://tryhackme.com/)
 
 "TryHackMe" 是一个在线平台，它为学习和教育网络安全提供了一种互动且实用的方法，该平台主要面向所有知识水平的个人或组织，从网络安全初学者到高级安全从业人员，THM为用户提供了一个安全的在线环境，以便他们学习各种网络安全技能和概念并进行知识点实践。
 
