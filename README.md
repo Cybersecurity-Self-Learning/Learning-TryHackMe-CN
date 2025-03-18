@@ -1,6 +1,6 @@
 ---
-icon: user-secret
 description: 基于TryHackMe网络安全在线学习平台的中文知识库(主要内容为THM的Learning paths教学部分)。
+icon: user-secret
 cover: .gitbook/assets/default_tryhackme_logo.png
 coverY: 0
 layout:
@@ -23,11 +23,9 @@ layout:
 
 <figure><picture><source srcset=".gitbook/assets/Snipaste_2025-01-05_22-29-34-modified.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/Snipaste_2025-01-05_22-29-54-modified.png" alt="" width="407"></picture><figcaption></figcaption></figure>
 
-本项目GitHub链接：[https://github.com/Hekeatsll/Learning-TryHackMe-CN](https://github.com/Cybersecurity-Self-Learning/Learning-TryHackMe-CN)
+本项目GitHub链接：[https://github.com/Cybersecurity-Self-Learning/Learning-TryHackMe-CN](https://github.com/Cybersecurity-Self-Learning/Learning-TryHackMe-CN)
 
 <figure><img src=".gitbook/assets/tryhackme.jpg" alt=""><figcaption></figcaption></figure>
-
-**TryHackMe**官网链接：[https://tryhackme.com](https://tryhackme.com/)
 
 **TryHackMe** 是面向网络安全初学者的 **互动式学习平台**，以趣味性、低门槛和实战导向著称，适合从零起步构建渗透测试与防御技能。
 
