@@ -21,7 +21,7 @@ layout:
 
 # Welcome(欢迎)
 
-<figure><picture><source srcset=".gitbook/assets/Snipaste_2025-01-05_22-29-34-modified.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/Snipaste_2025-01-05_22-29-54-modified.png" alt="" width="407"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset=".gitbook/assets/Snipaste_2025-01-05_22-29-34-modified.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/Snipaste_2025-01-05_22-29-54-modified.png" alt="" width="449"></picture><figcaption></figcaption></figure>
 
 本项目GitHub链接：[https://github.com/Cybersecurity-Self-Learning/Learning-TryHackMe-CN](https://github.com/Cybersecurity-Self-Learning/Learning-TryHackMe-CN)
 
